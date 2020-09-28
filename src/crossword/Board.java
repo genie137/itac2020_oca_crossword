@@ -14,7 +14,10 @@ public class Board {
         this.previouslyFound = new HashMap<>();
     }
 
-    public static Board importCrosswordRows(@NotNull String[] crossword){
+    public static Board importCrosswordRows(String[] crossword){
+        /*
+        Import a string array an convert the characters to Letter instances and add it to an 2D Letter array.
+         */
         Letter[][] ret = new Letter[crossword.length][];
         for (int i = 0; i < crossword.length; i++) {
             char[] rowChars = crossword[i].toCharArray();
@@ -26,14 +29,22 @@ public class Board {
         return new Board(ret);
     }
 
-    public Letter getLetterAtPos(int x, int y){
+    public Letter getLetterAtPos(int x, int y, boolean mayBeCrossed){
+        /*
+        Get the letter at the given position.
+         */
         if (x < 0 || y < 0){
             return null;
         }
         if (x < this.letterBoard.length){
             Letter[] row = this.letterBoard[x];
             if (y < row.length){
-                return row[y];
+                Letter foundLetter = row[y];
+                if (foundLetter.isCrossedOff()) {
+                    return mayBeCrossed ? foundLetter : null;
+                } else {
+                    return foundLetter;
+                }
             }
         }
         return null;
@@ -49,20 +60,6 @@ public class Board {
             }
         }
         return found;
-    }
-
-    public HashMap<WordDirection, Letter> getSurroundingLetters(Letter wordLetter, boolean crossedOff) {
-        HashMap<WordDirection, Letter> ret = new HashMap<>();
-        for (WordDirection direction : WordDirection.values()) {
-            int toX = wordLetter.getRow() + direction.getMoveRow();
-            int toY = wordLetter.getColumn() + direction.getMoveCol();
-
-            Letter foundLetter = this.getLetterAtPos(toX, toY);
-            if ((foundLetter != null) && (!foundLetter.isCrossedOff())){
-                ret.put(direction, foundLetter);
-            }
-        }
-        return ret;
     }
 
     public ArrayList<Letter> getAllLetters(boolean includeCrossedOff){
@@ -124,7 +121,7 @@ public class Board {
             return moveRow;
         }
 
-        public int getMoveCol() {
+        public int getMoveColumn() {
             return moveCol;
         }
     }

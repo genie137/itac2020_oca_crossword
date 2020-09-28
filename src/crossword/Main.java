@@ -1,7 +1,7 @@
 package crossword;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         String[] crosswordOne = {"LEEUWKWO", "EGAWIROG", "ANNAJOLN", "AARSSKII", "DEDBBOFM", "IEREEDAA", "ENTEEINL", "UINRRLTF"};
 
         Crossword crossword = new Crossword(crosswordOne);
