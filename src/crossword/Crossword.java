@@ -13,10 +13,10 @@ public class Crossword {
 
     public void findWord(String word) {
         //Find a word in the crossword.
-        this.findWord(word, true, false);
+        findWord(word, true, false);
     }
 
-    public void findWord(String word, boolean crossOffWhenFound, boolean letterMayBeCrossed) {
+    private void findWord(String word, boolean crossOffWhenFound, boolean letterMayBeCrossed) {
 
         //Find a word in the crossword.
         System.out.println("--> Looking for word " + word);
@@ -46,7 +46,7 @@ public class Crossword {
         }
     }
 
-    public ArrayList<Letter> followDirection(Letter followLetter, Board.WordDirection wordDirection, char[] charWord, int charWordIndex, boolean letterMayBeCrossed){
+    private ArrayList<Letter> followDirection(Letter followLetter, Board.WordDirection wordDirection, char[] charWord, int charWordIndex, boolean letterMayBeCrossed){
         //[1] Add the direction x and y to the current followLetter to get the letter at that position.
         Letter foundLetter = this.board.getLetterAtPos(followLetter.getRow() + wordDirection.getMoveRow(), followLetter.getColumn() + wordDirection.getMoveColumn(), letterMayBeCrossed);
         //[2] If no letter has been found, return null to signify that this direction does not result in the word.
